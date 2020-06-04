@@ -91,7 +91,7 @@ def process_song_data(spark, input_data, output_data, run_start_time):
     start_at = datetime.now()
     df_sd.createOrReplaceTempView("artists_table_DF")
     artists_table = spark.sql("""
-        SELECT  artist_id        AS artist_id,
+        SELECT  DISTINCT artist_id        AS artist_id,
                 artist_name      AS name,
                 artist_location  AS location,
                 artist_latitude  AS latitude,
@@ -261,7 +261,7 @@ def process_log_data(spark, input_data_ld, input_data_sd, output_data, \
                         monotonically_increasing_id())
     df_ld_sd_joined.createOrReplaceTempView("songplays_table_DF")
     songplays_table = spark.sql("""
-                                SELECT  songplay_id AS songplay_id,
+                                SELECT  DISTINCT songplay_id AS songplay_id,
                                         timestamp   AS start_time,
                                         userId      AS user_id,
                                         level       AS level,
